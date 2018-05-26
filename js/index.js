@@ -64,7 +64,7 @@ $(".reset").click(function(e) {
     let usdCurrency = "USD";
    
       //GET JSON DATA
-    const url = "http://data.fixer.io/api/latest?access_key=451a2006f25b2b0d3024093bc3e7e588";
+    const url = "https://data.fixer.io/api/latest?access_key=451a2006f25b2b0d3024093bc3e7e588";
     $.getJSON(url, function(key) {
       const dataRates = [];
       dataRates.push(key.rates)
