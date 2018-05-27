@@ -4,8 +4,7 @@ $(document).ready(function() {
     showMainSection();
     });
     
-    $("#logo").click(function(e){
-    
+    $("h1").click(function(e){
      reset();
     });
     
@@ -48,6 +47,7 @@ $(".reset").click(function(e) {
       $("#whereAreYouTraveling").delay(300).hide();
       
       
+      
   }
     
 // display main section
@@ -71,7 +71,9 @@ $(".reset").click(function(e) {
       let userCurrencyRate = dataRates[0][countryCurrency];
       let convertedAmount = userCurrencyRate * fromDollar;
         let parsedConvertedAmount = parseFloat(Math.round(convertedAmount* 100) / 100).toFixed(2);
-      $("#convertedAmount").append(parsedConvertedAmount)
+      $("#convertedAmount").append(parsedConvertedAmount + "  " + countryCurrency);
+        
+        
     });
   }
     
