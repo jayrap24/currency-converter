@@ -166,7 +166,8 @@ legend{
 }
 
 label[for=fromDollar]{
-    display: none;
+   
+    color: transparent;
 }
 
 
