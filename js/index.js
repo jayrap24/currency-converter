@@ -1,105 +1,125 @@
 $(document).ready(function() {
-    
-    $("#start").click(function(e) {
-    showMainSection();
-    });
-    
-    $("h1").click(function(e){
-     reset();
-    });
-    
-  $("#countryCurrency").change(function(e) {
-    convertCurrency();
-    //empty the div if changing the currency
-    $("#convertedAmount").empty()
-  });
-  $("#fromDollar").keypress(function(e) {
-    convertCurrency();
-    //empty the div if changing the currency
-    $("#convertedAmount").empty()
-  });
-  $("#fromDollar").change(function(e) {
-    convertCurrency();
-    //empty the div if changing the currency
-    $("#convertedAmount").empty()
-  });
-  $("#nextToAmountConversion").click(function(e) {
-    showAmountConversionForm();
-  });
-  $("#nextToConvertedAmount").click(function(e) {
-    showConvertedAmount();
-  });
-    
-$(".reset").click(function(e) {
-    reset();
-  });
-    
-  //display the converted amount
-  function showConvertedAmount() {
-    $("#convertedAmount").delay(300).fadeIn(1000);
-      $("#amountConversion").delay(300).hide();
-      $("#total").delay(300).fadeIn(1000);
-      
+  function symbolApi() {
+    const symbolURL = "https://data.fixer.io/api/symbols?access_key=451a2006f25b2b0d3024093bc3e7e588";
+    $.getJSON(symbolURL, function(key) {
+    })
   }
-  // display the amount conversion form
-  function showAmountConversionForm() {
-  $("#amountConversion").delay(300).fadeIn(1000);
-      $("#whereAreYouTraveling").delay(300).hide();
-      
-      
-      
-  }
-    
-// display main section
-    function showMainSection(){
-        $("#mainSection").delay(300).fadeIn(1000);
-        $("aside").hide(); 
+  function flucApi() {
+    const fluctQuery = {
+      base: "USD"
     }
-     
-    
-  //convert currency function
-  function convertCurrency() {
+    const fluctUrl = "https://data.fixer.io/api/latest?access_key=451a2006f25b2b0d3024093bc3e7e588";
+    $.getJSON(fluctUrl, fluctQuery, function(key) {
+      data = key;
+      navRates();
+    });
+  }
+  function loadingApi() {
+    const yourCurrency = document.getElementById("yourCurrency").value;
+    const currencyAmount = document.getElementById("currencyAmount").value;
     const countryCurrency = document.getElementById("countryCurrency").value;
-    const fromDollar = document.getElementById("fromDollar").value;
-    let usdCurrency = "USD";
-   
-      //GET JSON DATA
-    const url = "https://data.fixer.io/api/latest?access_key=451a2006f25b2b0d3024093bc3e7e588";
-    $.getJSON(url, function(key) {
-      const dataRates = [];
-      dataRates.push(key.rates)
-      let userCurrencyRate = dataRates[0][countryCurrency];
-      let convertedAmount = userCurrencyRate * fromDollar;
-        let parsedConvertedAmount = parseFloat(Math.round(convertedAmount* 100) / 100).toFixed(2);
-      $("#convertedAmount").append(parsedConvertedAmount + "  " + countryCurrency);
-        
-        
+    const url = "https://data.fixer.io/api/convert?access_key=451a2006f25b2b0d3024093bc3e7e588";
+    const query = {
+      "from": yourCurrency,
+      "to": countryCurrency,
+      "amount": currencyAmount
+    };
+    $.getJSON(url, query, function(key) {
+
+      const from = key.query.from;
+      const to = key.query.to
+      const result = key.result;
+      const parsedResult = parseFloat(Math.round(result * 100) / 100).toFixed(2);
+
+      function convertedAmount() {
+        $("#convertedAmount").append("<p>" + parsedResult + "</p>");
+      }
+      convertedAmount();
     });
+  };
+  function navRates() {
+    let audRate = data.rates["AUD"];
+    $("#aud").append("AUD/USD" + "<br>" + audRate);
+    let jpyRate = data.rates["JPY"];
+    $("#jpy").append("JPY/USD" + "<br>" + jpyRate);
+    let gbpRate = data.rates["GBP"];
+    $("#gbp").append("GBP/USD" + "<br>" + gbpRate);
+    let brlRate = data.rates["BRL"];
+    $("#brl").append("BRL/USD" + "<br>" + brlRate);
+    let eurRate = data.rates["EUR"];
+    $("#eur").append("EUR/USD" + "<br>" + eurRate);
+    let idrRate = data.rates["IDR"];
+    $("#idr").append("IDR/USD" + "<br>" + idrRate);
   }
-    
-    
-    function reset(){  
-        $("#whereAreYouTraveling").show();
-        $("#convertedAmount").hide();
-        $("#total").hide();
-        $("#amountConversion").hide();
-    }
-    
- 
-/* ----------- Animation ---------*/
-    /* -------- Header Section-----*/
-    
-  
-    
-    /* -------- Welcome Section-----*/
-        $("#helloWorld").delay(200).fadeIn(1000);
-        $("#helloWorld").fadeOut(2000);
-        $("#convertYour").delay(3000).fadeIn(3000);
-        $("#start").delay(3200).fadeIn(5000);
-   
-    
-convertCurrency()
+  function emptyResult() {
+    $("#convertedAmount").empty();
+  };
+  $("#yourCurrency").change(function(e) {
+    e.preventDefault();
+    loadingApi();
+    emptyResult();
+  });
+  $("#countryCurrency").change(function(e) {
+    e.preventDefault();
+    loadingApi();
+    emptyResult()
+  });
+  $("#currencyAmount").change(function(e) {
+    e.preventDefault();
+    loadingApi();
+    emptyResult();
+  });
+  function showAmountConversion() {
+    $("#start").click(function() {
+      $("#amountConversion").show();
+      $("#welcomePage").hide();
+    });
+  };
+  function showWhereAreYouTraveling() {
+    $("#nextToConvertedAmount").click(function() {
+      $("#whereAreYouTraveling").show();
+      $("#amountConversion").hide();
+    });
+  };
+  function showConvertedAmount() {
+    $("#nextToAmountConversion").click(function() {
+      $("#amountDiv").show();
+      $("#whereAreYouTraveling").show();
+    })
+  }
+  function showResults() {
+    $("#nextToAmountConversion").click(function() {
+      $("#whereAreYouTraveling").hide();
+      $("#amountDiv").show();
+    })
+  }
+  function logo() {
+    $("img").click(function() {
+      window.location.reload()
+    })
+  }
+  function reset() {
+    $(".reset").click(function() {
+      window.location.reload()
+    })
+
+  }
+  /* animated function */
+  function welcome() {
+    $("#helloWorld").delay(200).fadeIn(1000);
+    $("#helloWorld").fadeOut(2000);
+    $("#convertYour").delay(3000).fadeIn(3000);
+    $("#start").delay(3200).fadeIn(5000);
+  }
+  welcome();
+  symbolApi();
+  loadingApi();
+  flucApi();
+  emptyResult();
+  showAmountConversion();
+  showWhereAreYouTraveling();
+  showConvertedAmount();
+  showResults();
+  reset();
+  logo()
 });
-
-
-

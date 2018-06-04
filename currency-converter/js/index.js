@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    
+    $("#start").click(function(e) {
+    showMainSection();
+    });
+    
+    $("h1").click(function(e){
+     reset();
+    });
+    
   $("#countryCurrency").change(function(e) {
     convertCurrency();
     //empty the div if changing the currency
@@ -21,18 +30,32 @@ $(document).ready(function() {
     showConvertedAmount();
   });
     
-    
+$(".reset").click(function(e) {
+    reset();
+  });
     
   //display the converted amount
   function showConvertedAmount() {
-    $("#convertedAmount").show();
+    $("#convertedAmount").delay(300).fadeIn(1000);
+      $("#amountConversion").delay(300).hide();
+      $("#total").delay(300).fadeIn(1000);
+      
   }
   // display the amount conversion form
   function showAmountConversionForm() {
-    $("#amountConversion").show();
+  $("#amountConversion").delay(300).fadeIn(1000);
+      $("#whereAreYouTraveling").delay(300).hide();
+      
+      
+      
   }
     
-    
+// display main section
+    function showMainSection(){
+        $("#mainSection").delay(300).fadeIn(1000);
+        $("aside").hide(); 
+    }
+     
     
   //convert currency function
   function convertCurrency() {
@@ -41,58 +64,40 @@ $(document).ready(function() {
     let usdCurrency = "USD";
    
       //GET JSON DATA
-    const url = "http://data.fixer.io/api/latest?access_key=727cb8f4f7066385df06977d0ee4a9df";
-      
-
-      
-      
+    const url = "https://data.fixer.io/api/latest?access_key=451a2006f25b2b0d3024093bc3e7e588";
     $.getJSON(url, function(key) {
       const dataRates = [];
       dataRates.push(key.rates)
       let userCurrencyRate = dataRates[0][countryCurrency];
       let convertedAmount = userCurrencyRate * fromDollar;
-      $("#convertedAmount").append(convertedAmount)
+        let parsedConvertedAmount = parseFloat(Math.round(convertedAmount* 100) / 100).toFixed(2);
+      $("#convertedAmount").append(parsedConvertedAmount + "  " + countryCurrency);
+        
+        
     });
   }
     
     
-    
-  //google maps function
-  function initMap() {
-    let mapPosition = {
-      center: {
-        lat: 34.0522,
-        lng: -118.2437
-      },
-      zoom: 8
-    };
-    let googleMaps = new google.maps.Map(document.getElementById("googleMaps"), mapPosition);
-    //create a addMarker function to pass in miltiple locations
-    function addMarker(location) {
-      let mapMarker = new google.maps.Marker({
-        position: location,
-        map: googleMaps
-      });
-      let infoWindow = new google.maps.InfoWindow({
-        content: "<p>Local Currency Exchange Here"
-      });
-      mapMarker.addListener('click', function() {
-        infoWindow.open(googleMaps, mapMarker);
-      })
+    function reset(){  
+        $("#whereAreYouTraveling").show();
+        $("#convertedAmount").hide();
+        $("#total").hide();
+        $("#amountConversion").hide();
     }
-
-    //Data of Multiple locations by calling addMarker function
-    addMarker({
-      lat: 34.0522,
-      lng: -118.2437
-    });
-    addMarker({
-      lat: 33.0522,
-      lng: -117.2437
-    });
-  }
-
-  initMap();
+    
+ 
+/* ----------- Animation ---------*/
+    /* -------- Header Section-----*/
+    
+  
+    
+    /* -------- Welcome Section-----*/
+        $("#helloWorld").delay(200).fadeIn(1000);
+        $("#helloWorld").fadeOut(2000);
+        $("#convertYour").delay(3000).fadeIn(3000);
+        $("#start").delay(3200).fadeIn(5000);
+   
+    
 convertCurrency()
 });
 
