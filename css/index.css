@@ -111,7 +111,7 @@ legend {
   margin-top: 40px;
 }
 #amountDiv {
-  background: url(/Thinkful/projects/atlas-green-1507-unsplash.jpg);
+  background: none;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
