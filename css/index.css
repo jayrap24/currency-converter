@@ -31,7 +31,7 @@ h1 {
   padding: 10px;
 }
 #welcomePage {
-  background: url(/currency-converter/igor-ovsyannykov-355349-unsplash.jpg);
+  background: url(/igor-ovsyannykov-355349-unsplash.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
@@ -69,7 +69,7 @@ h1 {
 }
 #amountConversion,
 #whereAreYouTraveling {
-  background: url(/currency-converter/atlas-green-1507-unsplash.jpg);
+  background: url(/atlas-green-1507-unsplash.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
