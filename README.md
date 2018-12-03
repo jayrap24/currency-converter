@@ -1,5 +1,5 @@
 # MoneyExchange
-A platform for US Resident travelers to help calculate the conversion of their US Dollars to another currency.
+A platform for US travelers to help calculate the conversion rate of their US Dollars to another currency.
 
 <h2>KEY TECHNOLOGIES USED</h2>
 <ul>
