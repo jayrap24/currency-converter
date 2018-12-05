@@ -1,5 +1,6 @@
 # MoneyExchange
-A platform for US travelers to help calculate the conversion rate of their US Dollars to another currency.
+
+MoneyXchange is an app designed for users to calculate their currency and foreign currency live by fetching an API with the current conversion rates of  a handful of countries. This app aims to help travelers convert their currency to the countries they are traveling to.  
 
 <h2>KEY TECHNOLOGIES USED</h2>
 <ul>
